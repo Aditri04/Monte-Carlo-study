@@ -165,7 +165,7 @@ def prob_estimate_royal_flush(no_of_samples):
     return prob
 
 
-def prob_estimate_oil_filter(p, time_to_change, no_of_samples):
+def prob_estimate_oil_filter_change(p, time_to_change, lambda1, lambda2, no_of_samples):
     success = 0
     seed = 20
     for i in range(no_of_samples):
@@ -173,12 +173,12 @@ def prob_estimate_oil_filter(p, time_to_change, no_of_samples):
         u1 = sampleGen(1, 'uniform', [0, 1], seed)[0]
         if u1 < p:
             seed = seed + 10
-            sample = sampleGen(1, 'exponential', [5], seed)[0]
+            sample = sampleGen(1, 'exponential', [lambda1], seed)[0]
             if sample > time_to_change:
                 success = success + 1
         else:
             seed = seed + 10
-            sample = sampleGen(1, 'exponential', [20], seed)[0]
+            sample = sampleGen(1, 'exponential', [lambda2], seed)[0]
             if sample > time_to_change:
                 success = success + 1
     prob = success/no_of_samples
@@ -201,9 +201,21 @@ print(sampleGen(10, 'arb-discrete', [0.25, 0.25, 0.5], 20))
 # from 5.7(d) this guarantees the error not exceeding 0.005 with probability 0.95
 n_samples = 38416
 
+print('Poisson distribution comparison p{X>Y}')
+lambda1 = int(input('Enter lambda1: '))
+lambda2 = int(input('Enter lambda2: '))
 print('Estimated Probability P{X>Y} is ',
-      poisson_dist_comparison(3, 5, n_samples))
+      poisson_dist_comparison(lambda1, lambda2, n_samples))
+
+print()
 print('Estimated Probability of a royal flush is ',
       prob_estimate_royal_flush(n_samples))
-print('Estimated Probability that it will take more than 35 mins is ',
-      prob_estimate_oil_filter(1/5, 35/60, n_samples))
+
+print()
+print('Probability estimate of service time when 2 mechanic work at different rate')
+l1 = int(input('Enter rate of work done by mechanic 1 in 1 hr: '))
+l2 = int(input('Enter rate of work done by mechanic 2 in 1 hr: '))
+prob = float(input('Enter probability of choosing mechanic 1: '))
+serv_time = float(input('Enter service time in  hr: '))
+print('Estimated Probability that it will take more than the service time is ',
+      prob_estimate_oil_filter_change(prob, serv_time, l1, l2, n_samples))
