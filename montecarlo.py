@@ -15,8 +15,7 @@ def sampleGen(no_of_samples, distribution, parameters, seed=20):
             for i in range(len(p)):
                 F.append(sum(p[0:i+1]))
             if F[-1] != 1:
-                print('Probabilites need to add up 1')
-                return
+                return 'Invalid paramters, Probabilites do not add up to 1'
             for i in range(no_of_samples):
                 sample = 0
                 u = random.random()
@@ -26,8 +25,7 @@ def sampleGen(no_of_samples, distribution, parameters, seed=20):
             return samples
         case 'bernoulli':
             if len(parameters) != 1:
-                print('Invalid number of parameters')
-                return
+                return 'Invalid number of parameters'
             p = parameters[0]
             for i in range(no_of_samples):
                 u = random.random()
@@ -38,8 +36,7 @@ def sampleGen(no_of_samples, distribution, parameters, seed=20):
             return samples
         case 'binomial':
             if len(parameters) != 2:
-                print('Invalid number of parameters')
-                return
+                return 'Invalid number of parameters'
             n = parameters[0]
             p = parameters[1]
             for i in range(no_of_samples):
@@ -52,8 +49,7 @@ def sampleGen(no_of_samples, distribution, parameters, seed=20):
             return samples
         case 'geometric':
             if len(parameters) != 1:
-                print('Invalid number of parameters')
-                return
+                return 'Invalid number of parameters'
             p = parameters[0]
             for i in range(no_of_samples):
                 sample = 0
@@ -65,8 +61,7 @@ def sampleGen(no_of_samples, distribution, parameters, seed=20):
             return samples
         case 'neg-binomial':
             if len(parameters) != 2:
-                print('Invalid number of parameters')
-                return
+                return 'Invalid number of parameters'
             k = parameters[0]
             p = parameters[1]
             for i in range(no_of_samples):
@@ -81,8 +76,7 @@ def sampleGen(no_of_samples, distribution, parameters, seed=20):
             return samples
         case 'poisson':
             if len(parameters) != 1:
-                print('Invalid number of parameters')
-                return
+                return 'Invalid number of parameters'
             lamdba_dist = parameters[0]
             for i in range(no_of_samples):
                 temp = 1
@@ -96,8 +90,7 @@ def sampleGen(no_of_samples, distribution, parameters, seed=20):
             return samples
         case 'uniform':
             if len(parameters) != 2:
-                print('Invalid number of parameters')
-                return
+                return 'Invalid number of parameters'
             a = parameters[0]
             b = parameters[1]
             for i in range(no_of_samples):
@@ -106,8 +99,7 @@ def sampleGen(no_of_samples, distribution, parameters, seed=20):
             return samples
         case 'exponential':
             if len(parameters) != 1:
-                print('Invalid number of parameters')
-                return
+                return 'Invalid number of parameters'
             lambda_dist = parameters[0]
             for i in range(no_of_samples):
                 u = random.random()
@@ -116,8 +108,7 @@ def sampleGen(no_of_samples, distribution, parameters, seed=20):
             return samples
         case 'gamma':
             if len(parameters) != 2:
-                print('Invalid number of parameters')
-                return
+                return 'Invalid number of parameters'
             alpha = parameters[0]
             lambda_dist = parameters[1]
             for i in range(no_of_samples):
@@ -127,8 +118,7 @@ def sampleGen(no_of_samples, distribution, parameters, seed=20):
             return samples
         case 'normal':
             if len(parameters) != 2:
-                print('Invalid number of parameters')
-                return
+                return 'Invalid number of parameters'
             mean = parameters[0]
             std = parameters[1]
             for i in range(no_of_samples):
